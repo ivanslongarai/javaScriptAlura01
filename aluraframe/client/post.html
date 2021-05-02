@@ -1,0 +1,64 @@
+<!-- aluraframe/client/post.html -->
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Negociações</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+
+<body class="container">
+    <form class="form">
+
+        <div class="form-group">
+            <label for="date">Data</label>
+            <input type="date" id="date" class="form-control" required autofocus />
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Quantidade</label>
+            <input type="number" min="1" step="1" id="amount" class="form-control" value="1" required />
+        </div>
+
+        <div class="form-group">
+            <label for="price">Valor</label>
+            <input id="price" type="number" class="form-control" min="0.01" step="0.01" value="0.0" required />
+        </div>
+
+        <button class="btn btn-primary" type="submit" onclick="sendPost(event)">Enviar dados para servidor</button>
+    </form>
+
+    <script src="js/app/services/HttpService.js"></script>
+    <script>
+        function sendPost(event) {
+
+            event.preventDefault();
+
+            console.log("Sending post");
+
+            let $ = document.querySelector.bind(document);
+            inputDate = $('#date');
+            inputAmount = $('#amount');
+            inputPrice = $('#price');
+
+            let negotiation = {
+                date: inputDate.value,
+                amount: inputAmount.value,
+                price: inputPrice.value
+            };
+
+            new HttpService().post("http://localhost:3000/negotiations/", negotiation)
+                .then(() => {
+                    inputDate.value = '';
+                    inputAmount.value = 1;
+                    inputPrice.value = 0.0;
+                    inputDate.focus();
+                    alert('Negociação enviada com sucesso');
+                })
+                .catch(erro => alert(`Não foi possível enviar a negociação: ${erro}`));
+        }
+    </script>
+</body>
+
+</html>
