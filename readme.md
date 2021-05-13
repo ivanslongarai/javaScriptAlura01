@@ -47,3 +47,4 @@
 - ###### Entenda quando e como usar herança dentro de seus projetos
 - ###### Conheça boas práticas de programação
 - ###### Veja código JavaScript moderno que você pode utilizar em seus projetos
+- ###### https://cursos.alura.com.br/course/javascript-polimorfismo
